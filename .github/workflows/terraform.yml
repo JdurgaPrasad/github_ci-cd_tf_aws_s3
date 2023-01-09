@@ -47,3 +47,26 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -lock=false -auto-approve
+  tfdestroy:      
+    name: "tfdestroy"
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    #env:
+    #  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    #  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    defaults:
+      run:
+        working-directory: src
+    needs: terraform    
+    steps:
+      - name: Get AWS permissions
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::505450491027:role/GitHubToAWSAdmin
+          aws-region: us-west-2
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve
