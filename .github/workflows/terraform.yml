@@ -22,7 +22,7 @@ jobs:
       - name: Get AWS permissions
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: arn:aws:iam::549289340310:role/GitHubToAWSAdmin
+          role-to-assume: arn:aws:iam::505450491027:role/GitHubToAWSAdmin
           aws-region: us-west-2
       - name: Checkout
         uses: actions/checkout@v2
